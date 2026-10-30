@@ -132,14 +132,19 @@ html, body
   margin: 0
   padding: 0
   height: 100%
+
+html
   background-color: var(--bg-color)
   color: var(--text-color)
   transition: background-color 0.5s ease, color 0.5s ease
 
-body
-  font-family: var(--font-sans)
+// El fondo con profundidad va en html: body mide 100% de alto y lo cortaría tras la primera pantalla
+html
   background-image: var(--bg-depth)
   background-attachment: fixed
+
+body
+  font-family: var(--font-sans)
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
