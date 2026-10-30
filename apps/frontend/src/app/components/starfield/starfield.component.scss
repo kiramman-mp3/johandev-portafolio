@@ -12,7 +12,7 @@ canvas {
   display: block;
 }
 
-// El cielo es solo de noche: en tema claro queda el degradado menta
+// El cielo es solo de noche: en tema claro queda el degradado rosa
 :host-context(.light-theme) {
   display: none;
 }

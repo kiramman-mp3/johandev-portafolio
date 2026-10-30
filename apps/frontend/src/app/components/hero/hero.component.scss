@@ -84,7 +84,7 @@
         object-position: bottom;
         -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
         mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
-        // Borde de luz menta, como si la iluminara la estrella fugaz
+        // Borde de luz roja, como si la iluminara la estrella fugaz
         filter: drop-shadow(0 0 28px rgb(var(--primary-rgb) / 0.16));
     }
 
