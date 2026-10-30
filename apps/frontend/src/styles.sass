@@ -8,31 +8,31 @@
 :root
   color-scheme: dark
 
-  // Marca: verde de páramo. --purple-* queda como tono secundario del mismo verde
-  // para que los degradados heredados se vean casi planos.
-  --primary: #6bbf8e
-  --primary-rgb: 107 191 142
-  --purple-bright: #8fd1aa
-  --purple-rgb: 143 209 170
-  --on-primary: #0e1a13
+  // Marca, tomada del cielo de la intro: verde menta del resplandor y crema del núcleo
+  // de la galaxia. --purple-* quedó como nombre heredado del tono secundario.
+  --primary: #9ad6b6
+  --primary-rgb: 154 214 182
+  --purple-bright: #f2d6a8
+  --purple-rgb: 242 214 168
+  --on-primary: #08130d
 
   // Tipografía
   --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif
   --font-display: var(--font-sans)
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
-  // Solo para la intro del cielo: itálica suave, con aire de título de película
+  // Títulos: la itálica suave de la intro, con aire de título de película
   --font-story: 'Fraunces', Georgia, 'Times New Roman', serif
 
-  // Tema oscuro (por defecto): verde casi negro con profundidad
-  --bg-color: #0c1310
-  --bg-depth: radial-gradient(60rem 40rem at 15% -10%, rgb(63 125 92 / 0.28), transparent 60%), radial-gradient(50rem 35rem at 95% 25%, rgb(40 90 70 / 0.18), transparent 65%), radial-gradient(45rem 30rem at 40% 110%, rgb(63 125 92 / 0.14), transparent 60%)
+  // Tema oscuro (por defecto): cielo nocturno. Las estrellas las pinta <app-starfield>
+  --bg-color: #04060a
+  --bg-depth: radial-gradient(70rem 45rem at 50% 120%, rgb(40 70 90 / 0.18), transparent 70%)
 
-  // Vidrio: paneles translúcidos sobre el fondo con profundidad
-  --glass-bg: rgb(255 255 255 / 0.045)
-  --glass-bg-strong: rgb(255 255 255 / 0.07)
-  --glass-border: rgb(255 255 255 / 0.09)
-  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.07)
-  --glass-shadow: 0 24px 60px rgb(0 0 0 / 0.35)
+  // Vidrio ahumado: deja ver las estrellas difuminadas sin perder contraste sobre la galaxia
+  --glass-bg: rgb(10 14 22 / 0.55)
+  --glass-bg-strong: rgb(16 22 32 / 0.7)
+  --glass-border: rgb(255 255 255 / 0.08)
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.06)
+  --glass-shadow: 0 24px 60px rgb(0 0 0 / 0.5)
   --glass-blur: blur(22px) saturate(140%)
   --radius-panel: 28px
   --radius-card: 20px
@@ -153,6 +153,14 @@ body
 h1, h2, h3, h4
   font-family: var(--font-display)
 
+// Títulos grandes en la itálica de la intro
+h1, h2
+  font-family: var(--font-story)
+  font-style: italic
+  font-weight: 400
+  font-variation-settings: 'SOFT' 100, 'WONK' 1
+  letter-spacing: -0.01em
+
 button, input, select, textarea
   font: inherit
 
@@ -217,8 +225,8 @@ html.intro-active
   border-bottom: 1px solid var(--border)
 
   .section-title
-    font-size: 2rem
-    font-weight: 600
+    font-size: 2.4rem
+    font-weight: 400
     line-height: 1.2
     color: var(--text-color)
     margin: 0
@@ -229,7 +237,7 @@ html.intro-active
 
 // Título de página (Servicios, Proyectos)
 .page-title
-  font-weight: 800
+  font-weight: 400
   line-height: 1.15
   margin: 0 0 1.5rem 0
 
@@ -240,7 +248,6 @@ html.intro-active
 
   .title-main
     color: var(--text-color)
-    letter-spacing: -1px
 
   .title-highlight
     color: var(--primary)
