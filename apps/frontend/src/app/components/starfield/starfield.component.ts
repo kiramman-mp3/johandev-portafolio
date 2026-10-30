@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, afterNextRen
 import { createStars, drawShootingStar, paintMilkyWay } from '../../shared/sky/sky-painter';
 
 // Pausa entre estrellas fugaces, en milisegundos
-const METEOR_GAP = { min: 9000, max: 17000 };
+const METEOR_GAP = { min: 2500, max: 6000 };
 const METEOR_DURATION = 900;
 
 // Cielo de fondo de todo el sitio: la misma Vía Láctea de la intro, más tenue y fija.
