@@ -102,9 +102,10 @@
 // --- PANEL FIJO ---
 .story-panel {
   position: sticky;
-  top: 18vh;
+  top: 16vh;
   align-self: start;
   margin-top: 10vh;
+  padding: 1.75rem;
 
   @include bp.down(lg) {
     display: none;

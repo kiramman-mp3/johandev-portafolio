@@ -91,9 +91,7 @@
 .hero-terminal {
     font-family: var(--font-mono);
     font-size: 0.9rem;
-    background: var(--surface-raised);
-    border: 1px solid var(--border-strong);
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     overflow: hidden;
     animation: hero-in 0.6s ease-out 0.25s both;
 

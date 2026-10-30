@@ -21,7 +21,7 @@
         }
       </ol>
 
-      <div class="story-panel" aria-hidden="true">
+      <div class="story-panel glass" aria-hidden="true">
         <div class="pipeline" [style.--progress]="active() / (steps.length - 1)">
           <div class="pipeline-track"><div class="pipeline-fill"></div></div>
           @for (step of steps; track step.node; let i = $index) {
