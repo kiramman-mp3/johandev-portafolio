@@ -41,12 +41,20 @@
   --lx: 200vw;
   --ly: -200px;
   margin: 0;
-  max-width: 16em;
-  font-size: clamp(1.9rem, 5.5vw, 3.8rem);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
+  font-family: var(--font-story);
+  font-style: italic;
+  font-weight: 350;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  font-size: clamp(2.3rem, 6.5vw, 4.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   color: transparent;
+
+  // Cada frase en su línea; en móvil la primera se reparte en dos líneas parejas
+  .line {
+    display: block;
+    text-wrap: balance;
+  }
   background-image:
     radial-gradient(circle 170px at var(--lx) var(--ly), #ffffff, rgb(255 255 255 / 0) 70%),
     linear-gradient(to right, rgb(232 230 225 / 0.035) calc(var(--lx) - 40px), #e8e6e1 calc(var(--lx) + 90px));
@@ -57,7 +65,8 @@
 .intro-subtitle {
   margin: 1.25rem 0 0;
   font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-size: clamp(0.78rem, 2.4vw, 0.95rem);
+  text-wrap: balance;
   color: rgb(200 235 215 / 0.8);
   opacity: 0;
   transform: translateY(6px);
