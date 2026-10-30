@@ -37,7 +37,7 @@ const smoothstep = (a: number, b: number, t: number) => {
 };
 
 // Intro de entrada: cielo negro, aparecen estrellas y una galaxia, y una estrella fugaz
-// cruza la pantalla iluminando el texto a su paso. Se muestra una vez por sesión.
+// cruza la pantalla iluminando el texto a su paso. Se muestra en cada carga de la página.
 @Component({
   selector: 'app-intro-sky',
   standalone: true,
@@ -79,14 +79,12 @@ export class IntroSkyComponent implements OnDestroy {
 
   private start(): void {
     const root = document.documentElement;
-    // El script de index.html marca skip-intro si ya se vio en esta sesión o si se pide menos movimiento
+    // El script de index.html marca skip-intro si el sistema pide menos movimiento
     if (root.classList.contains('skip-intro') || !this.canvasRef()) {
       root.classList.remove('intro-active');
       this.done.set(true);
       return;
     }
-    try { sessionStorage.setItem('intro-seen', '1'); } catch { }
-
     root.classList.add('intro-active');
     window.addEventListener('keydown', this.onKey);
     window.addEventListener('resize', this.onResize);
@@ -100,8 +98,8 @@ export class IntroSkyComponent implements OnDestroy {
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    canvas.width = this.width * this.dpr;
-    canvas.height = this.height * this.dpr;
+    canvas.width = Math.round(this.width * this.dpr);
+    canvas.height = Math.round(this.height * this.dpr);
 
     const count = Math.round((this.width * this.height) / 2600);
     this.stars = Array.from({ length: count }, () => ({
@@ -165,6 +163,12 @@ export class IntroSkyComponent implements OnDestroy {
     const t = now - this.startTime;
     const canvas = this.canvasRef()?.nativeElement;
     if (!canvas) return;
+    // Si Angular recrea el canvas (hidratación o recarga en caliente) vuelve a su tamaño por defecto
+    const targetWidth = Math.round(this.width * this.dpr);
+    if (canvas.width !== targetWidth) {
+      canvas.width = targetWidth;
+      canvas.height = Math.round(this.height * this.dpr);
+    }
     const ctx = canvas.getContext('2d')!;
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.width, this.height);
