@@ -4,7 +4,7 @@
  * Modos de resolución:
  * 1. Configuración dinámica en runtime: window.__API_URL__ o localStorage.getItem('api_url')
  * 2. Desarrollo local (localhost / 127.0.0.1 / IPs privadas):
- *    - Apunta por defecto a http://localhost:4000 (backend Express local)
+ *    - Apunta por defecto a http://<host actual>:4000 (backend Express local, también desde la red local)
  *    - Si deseas probar el backend remoto en local: localStorage.setItem('use_remote_api', 'true')
  * 3. Despliegue unificado en Vercel (Frontend + Backend en un solo dominio):
  *    - Detecta automáticamente *.vercel.app o dominio personalizado en producción
@@ -29,7 +29,8 @@ export function getBaseApiUrl(): string {
       if (localStorage.getItem('use_remote_api') === 'true') {
         return DEFAULT_REMOTE_API;
       }
-      return 'http://localhost:4000';
+      // Mismo host que el frontend: así un móvil en la red local llega a la API del PC
+      return `http://${hostname}:4000`;
     }
 
     // 3. Despliegue unificado en Vercel (mismo dominio *.vercel.app o dominio personalizado)

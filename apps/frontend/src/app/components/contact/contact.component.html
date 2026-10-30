@@ -5,7 +5,7 @@
     <div class="contact-info-panel">
       <h2 class="contact-title">¿Tienes un proyecto en mente?</h2>
       <p class="contact-description">
-        Cuéntanos tu idea y te respondemos a la brevedad. Trabajamos con metodologías ágiles para entregar soluciones que escalan con tu negocio.
+        Cuéntame qué quieres construir. Leo cada mensaje y respondo desde mi correo personal.
       </p>
 
       <ul class="contact-features">
@@ -49,8 +49,8 @@
     </div>
 
     <!-- Right Column: Message Form Card -->
-    <div class="contact-card">
-      <h3 class="card-title">Envíanos un mensaje</h3>
+    <div class="contact-card" id="formulario-contacto">
+      <h3 class="card-title">Escríbeme</h3>
       
       <!-- Notifications -->
       <div *ngIf="successMessage" class="form-alert success">
@@ -110,7 +110,7 @@
           <textarea 
             id="message" 
             name="message" 
-            placeholder="Cuéntanos en qué podemos ayudarte..." 
+            placeholder="Qué necesitas, para cuándo y con qué stack, si ya lo sabes" 
             [(ngModel)]="formData.message" 
             required
             #messageInput="ngModel"

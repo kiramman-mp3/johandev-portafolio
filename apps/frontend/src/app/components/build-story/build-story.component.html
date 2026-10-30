@@ -1,0 +1,52 @@
+<section class="build-story" id="como-esta-hecho">
+  <div class="story-container">
+    <div class="section-header home-section-header">
+      <h2 class="section-title">Cómo está hecho este portafolio</h2>
+    </div>
+
+    <div class="story-grid">
+      <ol class="story-steps">
+        @for (step of steps; track step.node; let i = $index) {
+          <li class="story-step" [class.is-active]="active() === i" [attr.data-index]="i">
+            <span class="step-count">{{ i + 1 }}/{{ steps.length }}</span>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.text }}</p>
+
+            <!-- En móvil el código va junto a cada paso, no en el panel fijo -->
+            <div class="code-window step-code" aria-hidden="true">
+              <div class="code-file">{{ step.file }}</div>
+              <pre><code>{{ step.code }}</code></pre>
+            </div>
+          </li>
+        }
+      </ol>
+
+      <div class="story-panel glass" aria-hidden="true">
+        <div class="pipeline" [style.--progress]="active() / (steps.length - 1)">
+          <div class="pipeline-track"><div class="pipeline-fill"></div></div>
+          @for (step of steps; track step.node; let i = $index) {
+            <div class="pipeline-node" [class.is-done]="i < active()" [class.is-active]="i === active()">
+              <span class="node-dot"></span>
+              <span class="node-label">{{ step.node }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="code-window">
+          <div class="code-file">{{ steps[active()].file }}</div>
+          @for (step of steps; track step.node; let i = $index) {
+            @if (i === active()) {
+              <pre class="code-swap"><code>{{ step.code }}</code></pre>
+            }
+          }
+          @if (active() === 1 && projectCount() !== null) {
+            <div class="code-response">
+              <span class="status">GET /projects 200</span>
+              <span>{{ projectCount() }} proyectos en la respuesta</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

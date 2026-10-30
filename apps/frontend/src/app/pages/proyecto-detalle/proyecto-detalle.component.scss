@@ -3,7 +3,7 @@
 .project-detail-section {
   position: relative;
   width: 100%;
-  background: var(--bg-color);
+  background: transparent;
   padding: 120px 8% 80px;
   color: var(--text-color);
   overflow: hidden;
@@ -75,7 +75,7 @@
 
   .project-main-title {
     font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text-color);
     margin: 0;
     letter-spacing: -1px;

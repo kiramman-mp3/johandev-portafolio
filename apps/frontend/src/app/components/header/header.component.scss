@@ -9,156 +9,144 @@
     z-index: 1000;
 }
 
+// La barra ocupa todo el ancho pero solo la cápsula recibe clics
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 90px;
-    background: transparent;
-    color: var(--text-color);
+    padding: 16px 2rem 0;
+    pointer-events: none;
+    transition: padding 0.4s ease;
+
+    &.scrolled {
+        padding-top: 10px;
+    }
+
+    @include bp.down(md) {
+        padding: 10px 0.75rem 0;
+    }
+}
+
+.nav-shell {
+    pointer-events: auto;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 4%;
-    transition: background 0.4s ease, backdrop-filter 0.4s ease, height 0.4s ease, box-shadow 0.4s ease;
+    gap: 1rem;
+    padding: 8px 10px 8px 12px;
+    border-radius: 999px;
+    color: var(--text-color);
+    transition: max-width 0.4s ease, padding 0.4s ease;
 
-    &.scrolled {
-        height: 75px;
-        background: var(--nav-bg);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        box-shadow: var(--nav-shadow);
-        border-bottom: 1px solid rgb(var(--ink-rgb) / 0.05);
+    // Al hacer scroll la cápsula se encoge hacia el centro
+    .scrolled & {
+        max-width: 980px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 }
 
 .logo-container {
     display: inline-flex;
     align-items: center;
+    gap: 0.6rem;
     text-decoration: none;
     color: inherit;
-    line-height: 1;
-    z-index: 1100;
     cursor: pointer;
-    transition: opacity 0.3s ease;
-
-    &:hover {
-        opacity: 0.9;
-
-        .logo-image {
-            transform: scale(1.04);
-        }
-
-        .logo-main {
-            color: var(--primary);
-        }
-
-        .logo-top {
-            color: var(--purple-bright);
-        }
-    }
 }
 
 .logo-image {
-    height: 66px;
-    width: auto;
-    margin-right: 0.25rem;
-    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
 }
 
 .logo-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.logo-top {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-weight: 700;
-    color: var(--primary);
-    transition: color 0.3s ease;
-}
-
-.logo-main {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -1px;
-    transition: color 0.3s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgb(var(--ink-rgb) / 0.05);
+    border: 1px solid var(--glass-border);
 
     a {
-        color: inherit;
+        color: var(--text-muted);
         text-decoration: none;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: color 0.4s ease;
-        position: relative;
-        cursor: pointer;
-
-        &::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        &:hover::after {
-            width: 100%;
-        }
-    }
-
-    .theme-toggle-btn {
-        background: transparent;
-        border: none;
-        color: inherit;
-        font-size: 1.2rem;
-        cursor: pointer;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        transition: transform 0.3s ease, color 0.3s ease;
+        font-weight: 500;
+        font-size: 0.88rem;
+        padding: 6px 14px;
+        border-radius: 999px;
+        transition: background 0.25s ease, color 0.25s ease;
 
         &:hover {
-            transform: scale(1.1) rotate(15deg);
-            color: var(--primary);
+            color: var(--text-color);
         }
+
+        &.is-active {
+            color: var(--text-color);
+            background: rgb(var(--ink-rgb) / 0.1);
+        }
+    }
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: rgb(var(--ink-rgb) / 0.05);
+    color: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.25s ease;
+
+    &:hover {
+        background: rgb(var(--ink-rgb) / 0.12);
     }
 }
 
 .menu-toggle {
     display: none;
     flex-direction: column;
-    gap: 6px;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
     background: none;
     border: none;
-    padding: 0;
+    padding: 0 8px;
     color: inherit;
     cursor: pointer;
-    z-index: 1100;
 
     span {
-        width: 30px;
-        height: 3px;
+        height: 2px;
         background: currentColor;
-        border-radius: 10px;
-        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        border-radius: 2px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
     &.open {
         span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            transform: translateY(7px) rotate(45deg);
         }
 
         span:nth-child(2) {
@@ -166,39 +154,49 @@
         }
 
         span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: translateY(-7px) rotate(-45deg);
         }
     }
 }
 
+// En pantallas medianas y pequeñas los enlaces bajan en un panel de vidrio
 @include bp.down(lg) {
     .menu-toggle {
         display: flex;
     }
 
     .nav-links {
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: calc(100% + 8px);
         left: 0;
-        width: 100%;
-        height: 100vh;
-        background: var(--bg-color);
+        right: 0;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        transform: translateX(-100%);
+        align-items: stretch;
+        gap: 2px;
+        padding: 8px;
+        border-radius: var(--radius-card);
+        // Opaco: un backdrop-filter dentro de otro (la cápsula) no difumina la página de fondo
+        background: var(--bg-color);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        box-shadow: var(--glass-shadow);
+        opacity: 0;
+        transform: translateY(-6px);
         visibility: hidden;
-        transition: transform 0.3s ease, visibility 0s linear 0.3s;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 
         &.active {
-            transform: translateX(0);
+            opacity: 1;
+            transform: none;
             visibility: visible;
-            transition: transform 0.3s ease;
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
         a {
-            font-size: 1.5rem;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 14px;
         }
     }
 }
