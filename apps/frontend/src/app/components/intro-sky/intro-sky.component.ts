@@ -209,7 +209,7 @@ export class IntroSkyComponent implements OnDestroy {
   }
 
   private cleanup(): void {
-    cancelAnimationFrame(this.raf);
+    if (this.raf) cancelAnimationFrame(this.raf);
     if (typeof window !== 'undefined') {
       window.removeEventListener('keydown', this.onKey);
       window.removeEventListener('resize', this.onResize);
