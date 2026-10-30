@@ -21,8 +21,19 @@
   --font-display: var(--font-sans)
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
 
-  // Tema oscuro (por defecto)
-  --bg-color: #15171a
+  // Tema oscuro (por defecto): verde casi negro con profundidad
+  --bg-color: #0c1310
+  --bg-depth: radial-gradient(60rem 40rem at 15% -10%, rgb(63 125 92 / 0.28), transparent 60%), radial-gradient(50rem 35rem at 95% 25%, rgb(40 90 70 / 0.18), transparent 65%), radial-gradient(45rem 30rem at 40% 110%, rgb(63 125 92 / 0.14), transparent 60%)
+
+  // Vidrio: paneles translúcidos sobre el fondo con profundidad
+  --glass-bg: rgb(255 255 255 / 0.045)
+  --glass-bg-strong: rgb(255 255 255 / 0.07)
+  --glass-border: rgb(255 255 255 / 0.09)
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.07)
+  --glass-shadow: 0 24px 60px rgb(0 0 0 / 0.35)
+  --glass-blur: blur(22px) saturate(140%)
+  --radius-panel: 28px
+  --radius-card: 20px
   --text-color: #e8e6e1
   --ink-rgb: 232 230 225
   --text-muted: rgb(var(--ink-rgb) / 0.72)
@@ -30,9 +41,9 @@
   --text-muted-3: rgb(var(--ink-rgb) / 0.45)
   --border: rgb(var(--ink-rgb) / 0.08)
   --border-strong: rgb(var(--ink-rgb) / 0.15)
-  --surface: rgb(255 255 255 / 0.03)
-  --surface-hover: rgb(255 255 255 / 0.05)
-  --surface-raised: #1d2023
+  --surface: var(--glass-bg)
+  --surface-hover: var(--glass-bg-strong)
+  --surface-raised: rgb(0 0 0 / 0.28)
   --inset-bg: rgb(0 0 0 / 0.25)
   --field-bg: rgb(255 255 255 / 0.04)
   --field-bg-focus: rgb(255 255 255 / 0.07)
@@ -62,12 +73,18 @@ html.light-theme
   --purple-bright: #3f8560
   --purple-rgb: 63 133 96
   --on-primary: #ffffff
-  --bg-color: #f4f5f4
-  --text-color: #1b1e1c
-  --ink-rgb: 27 30 28
-  --surface: rgb(255 255 255 / 0.8)
-  --surface-hover: rgb(255 255 255 / 0.95)
-  --surface-raised: #ffffff
+  --bg-color: #e9f0ec
+  --bg-depth: radial-gradient(60rem 40rem at 15% -10%, rgb(160 205 180 / 0.55), transparent 60%), radial-gradient(50rem 35rem at 95% 25%, rgb(200 225 212 / 0.6), transparent 65%), radial-gradient(45rem 30rem at 40% 110%, rgb(170 210 190 / 0.45), transparent 60%)
+  --glass-bg: rgb(255 255 255 / 0.55)
+  --glass-bg-strong: rgb(255 255 255 / 0.72)
+  --glass-border: rgb(20 50 35 / 0.09)
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.9)
+  --glass-shadow: 0 24px 60px rgb(20 50 35 / 0.08)
+  --text-color: #16201b
+  --ink-rgb: 22 32 27
+  --surface: var(--glass-bg)
+  --surface-hover: var(--glass-bg-strong)
+  --surface-raised: rgb(255 255 255 / 0.7)
   --inset-bg: rgb(15 23 42 / 0.03)
   --field-bg: #ffffff
   --field-bg-focus: #ffffff
@@ -121,6 +138,8 @@ html, body
 
 body
   font-family: var(--font-sans)
+  background-image: var(--bg-depth)
+  background-attachment: fixed
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
@@ -138,7 +157,16 @@ code, pre, kbd
   outline-offset: 3px
 
 main.main-outlet
-  background-color: var(--bg-color)
+  background-color: transparent
+
+// Panel de vidrio: base de las tarjetas grandes del sitio
+.glass
+  background: var(--glass-bg)
+  border: 1px solid var(--glass-border)
+  border-radius: var(--radius-panel)
+  box-shadow: var(--glass-highlight), var(--glass-shadow)
+  backdrop-filter: var(--glass-blur)
+  -webkit-backdrop-filter: var(--glass-blur)
 
 
 // —— Animaciones de entrada ——
@@ -146,7 +174,6 @@ main.main-outlet
 // Sin opacity 0 para evitar parpadeo blanco en PCs lentas al hacer scroll o entrar a la sección
 .page-content-reveal
   animation: page-reveal 0.4s ease-out
-  background-color: var(--bg-color)
 
 @keyframes page-reveal
   0%
@@ -159,7 +186,6 @@ main.main-outlet
   opacity: 0
   transform: translateY(32px)
   transition: opacity 0.55s ease-out, transform 0.55s ease-out
-  background-color: var(--bg-color)
 
   &.scroll-reveal-visible
     opacity: 1

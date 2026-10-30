@@ -2,7 +2,7 @@
 
 .corporate-about-section {
   padding: 80px 2rem 40px;
-  background: var(--bg-color);
+  background: transparent;
   color: var(--text-color);
 
   @include bp.down(sm) {

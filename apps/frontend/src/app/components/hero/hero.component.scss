@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     color: var(--text-color);
-    background: var(--bg-color);
+    background: transparent;
 
     @include bp.down(md) {
         min-height: auto;

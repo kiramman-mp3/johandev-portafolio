@@ -3,7 +3,7 @@
 .featured-services-section {
   position: relative;
   padding: 60px 4% 50px;
-  background: var(--bg-color);
+  background: transparent;
 
   @include bp.down(md) {
     padding: 50px 4% 40px;
