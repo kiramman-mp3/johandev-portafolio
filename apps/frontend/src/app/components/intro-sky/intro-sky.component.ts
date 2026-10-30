@@ -24,6 +24,7 @@ const T = {
   starsIn: 1600,
   galaxyFrom: 700,
   galaxyTo: 2400,
+  hello: 1100,
   meteorStart: 2300,
   meteorDuration: 1150,
   subtitle: 3500,
@@ -51,6 +52,7 @@ export class IntroSkyComponent implements OnDestroy {
 
   done = signal(false);
   leaving = signal(false);
+  showHello = signal(false);
   showSubtitle = signal(false);
 
   private raf = 0;
@@ -255,6 +257,7 @@ export class IntroSkyComponent implements OnDestroy {
 
     this.drawMeteor(ctx, t);
 
+    if (t >= T.hello && !this.showHello()) this.showHello.set(true);
     if (t >= T.subtitle && !this.showSubtitle()) this.showSubtitle.set(true);
     if (t >= T.leave) {
       this.finish();

@@ -62,6 +62,36 @@
   background-clip: text;
 }
 
+// Se escribe letra por letra, como la salida de un programa (12 caracteres)
+.intro-hello {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2.6vw, 1.2rem);
+  color: rgb(200 235 215 / 0.85);
+
+  span {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    border-right: 0.55em solid transparent;
+  }
+
+  &.is-typing span {
+    animation: type-hello 0.9s steps(12, end) forwards, caret 0.8s steps(1) 4;
+  }
+}
+
+@keyframes type-hello {
+  to { width: 12.55ch; }
+}
+
+@keyframes caret {
+  0% { border-right-color: rgb(200 235 215 / 0.85); }
+  50% { border-right-color: transparent; }
+}
+
 .intro-subtitle {
   margin: 1.25rem 0 0;
   font-family: var(--font-mono);
