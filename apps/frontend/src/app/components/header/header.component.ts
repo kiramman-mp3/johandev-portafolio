@@ -1,17 +1,17 @@
 import { Component, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { ScrollService, scrollBehavior } from '../../shared/services/scroll.service';
-import { ThemeService } from '../../shared/services/theme';
+import { LogoMarkComponent } from '../logo-mark/logo-mark.component';
 import { signal } from '@angular/core';
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [CommonModule, RouterModule, NgOptimizedImage],
+    imports: [CommonModule, RouterModule, LogoMarkComponent],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -28,8 +28,7 @@ export class HeaderComponent implements OnDestroy {
         public navigationService: NavigationService,
         private scrollService: ScrollService,
         private router: Router,
-        private elementRef: ElementRef,
-        public themeService: ThemeService
+        private elementRef: ElementRef
     ) {
         this.routeSub = this.router.events
             .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -48,10 +47,6 @@ export class HeaderComponent implements OnDestroy {
 
     toggleMenu(): void {
         this.isMenuOpen.update(value => !value);
-    }
-
-    toggleTheme(): void {
-        this.themeService.toggleTheme();
     }
 
     scrollToSection(sectionId: string): void {

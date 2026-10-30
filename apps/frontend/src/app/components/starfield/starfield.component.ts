@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, afterNextRender, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, afterNextRender, inject, viewChild } from '@angular/core';
 import { createStars, drawShootingStar, paintMilkyWay } from '../../shared/sky/sky-painter';
 
 // Pausa entre estrellas fugaces, en milisegundos
@@ -16,6 +16,8 @@ const METEOR_DURATION = 900;
 })
 export class StarfieldComponent implements OnDestroy {
   private canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('sky');
+  private host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private observer: MutationObserver | undefined;
 
   private sky: HTMLCanvasElement | null = null;
   private width = 0;
@@ -38,13 +40,17 @@ export class StarfieldComponent implements OnDestroy {
     afterNextRender(() => {
       this.reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
       this.paint();
+      // Angular puede recrear el canvas después de hidratar; el nuevo sale vacío y con tamaño por defecto
+      this.observer = new MutationObserver(() => this.drawSky());
+      this.observer.observe(this.host.nativeElement, { childList: true });
       window.addEventListener('resize', this.onResize);
       if (!this.reduceMotion) this.scheduleMeteor();
     });
   }
 
   ngOnDestroy(): void {
-    cancelAnimationFrame(this.raf);
+    this.observer?.disconnect();
+    if (this.raf) cancelAnimationFrame(this.raf);
     clearTimeout(this.meteorTimer);
     clearTimeout(this.resizeTimer);
     if (typeof window !== 'undefined') window.removeEventListener('resize', this.onResize);
@@ -79,8 +85,12 @@ export class StarfieldComponent implements OnDestroy {
   }
 
   private drawSky(): CanvasRenderingContext2D | null {
-    const canvas = this.canvasRef()?.nativeElement;
+    const canvas = this.host.nativeElement.querySelector('canvas');
     if (!canvas || !this.sky) return null;
+    if (canvas.width !== this.sky.width || canvas.height !== this.sky.height) {
+      canvas.width = this.sky.width;
+      canvas.height = this.sky.height;
+    }
     const ctx = canvas.getContext('2d')!;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -96,8 +106,8 @@ export class StarfieldComponent implements OnDestroy {
 
   private launchMeteor(): void {
     const root = document.documentElement;
-    // Sin estrellas fugaces durante la intro, en tema claro o con la pestaña oculta
-    if (document.hidden || root.classList.contains('intro-active') || root.classList.contains('light-theme')) {
+    // Sin estrellas fugaces durante la intro o con la pestaña oculta
+    if (document.hidden || root.classList.contains('intro-active')) {
       this.scheduleMeteor();
       return;
     }
