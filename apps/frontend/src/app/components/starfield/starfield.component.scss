@@ -11,8 +11,3 @@ canvas {
   height: 100%;
   display: block;
 }
-
-// El cielo es solo de noche: en tema claro queda el degradado rosa
-:host-context(.light-theme) {
-  display: none;
-}

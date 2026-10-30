@@ -106,8 +106,8 @@ export class StarfieldComponent implements OnDestroy {
 
   private launchMeteor(): void {
     const root = document.documentElement;
-    // Sin estrellas fugaces durante la intro, en tema claro o con la pestaña oculta
-    if (document.hidden || root.classList.contains('intro-active') || root.classList.contains('light-theme')) {
+    // Sin estrellas fugaces durante la intro o con la pestaña oculta
+    if (document.hidden || root.classList.contains('intro-active')) {
       this.scheduleMeteor();
       return;
     }

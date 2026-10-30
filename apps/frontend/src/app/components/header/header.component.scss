@@ -105,24 +105,6 @@
     gap: 0.5rem;
 }
 
-.theme-toggle-btn {
-    width: 36px;
-    height: 36px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    border: 1px solid var(--glass-border);
-    background: rgb(var(--ink-rgb) / 0.05);
-    color: inherit;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: background 0.25s ease;
-
-    &:hover {
-        background: rgb(var(--ink-rgb) / 0.12);
-    }
-}
-
 .menu-toggle {
     display: none;
     flex-direction: column;

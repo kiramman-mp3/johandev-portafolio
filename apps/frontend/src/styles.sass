@@ -2,9 +2,9 @@
 @import '@fortawesome/fontawesome-free/css/all.css'
 
 // —— Tokens de diseño ——
-// Los componentes solo usan estas variables; el tema claro redefine las mismas en html.light-theme.
+// Los componentes solo usan estas variables; el sitio tiene un único tema oscuro.
 // --ink-rgb es el color de "tinta" del tema: úsalo para textos, bordes y rellenos translúcidos
-// con rgb(var(--ink-rgb) / 0.1), así un mismo estilo sirve en ambos temas.
+// con rgb(var(--ink-rgb) / 0.1).
 :root
   color-scheme: dark
 
@@ -23,7 +23,7 @@
   // Títulos: la itálica suave de la intro, con aire de título de película
   --font-story: 'Fraunces', Georgia, 'Times New Roman', serif
 
-  // Tema oscuro (por defecto): cielo nocturno. Las estrellas las pinta <app-starfield>
+  // Cielo nocturno. Las estrellas las pinta <app-starfield>
   --bg-color: #0a0405
   --bg-depth: radial-gradient(70rem 45rem at 50% 120%, rgb(120 20 30 / 0.22), transparent 70%)
 
@@ -67,41 +67,6 @@
   --danger: #f87171
   --danger-rgb: 239 68 68
   --code-color: #f43f5e
-
-html.light-theme
-  color-scheme: light
-  --primary: #b3262d
-  --primary-rgb: 179 38 45
-  --purple-bright: #c2414a
-  --purple-rgb: 194 65 74
-  --on-primary: #ffffff
-  --bg-color: #f6e9e8
-  --bg-depth: radial-gradient(60rem 40rem at 15% -10%, rgb(240 180 180 / 0.55), transparent 60%), radial-gradient(50rem 35rem at 95% 25%, rgb(245 205 200 / 0.6), transparent 65%), radial-gradient(45rem 30rem at 40% 110%, rgb(235 175 175 / 0.45), transparent 60%)
-  --glass-bg: rgb(255 255 255 / 0.55)
-  --glass-bg-strong: rgb(255 255 255 / 0.72)
-  --glass-border: rgb(70 20 25 / 0.09)
-  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.9)
-  --glass-shadow: 0 24px 60px rgb(70 20 25 / 0.08)
-  --text-color: #24161a
-  --ink-rgb: 36 22 26
-  --surface: var(--glass-bg)
-  --surface-hover: var(--glass-bg-strong)
-  --surface-raised: rgb(255 255 255 / 0.7)
-  --inset-bg: rgb(15 23 42 / 0.03)
-  --field-bg: #ffffff
-  --field-bg-focus: #ffffff
-  --field-border: rgb(15 23 42 / 0.15)
-  --shadow-card: 0 10px 30px rgb(0 0 0 / 0.05)
-  --shadow-card-hover: 0 18px 45px rgb(0 0 0 / 0.09)
-  --shadow-raised: 0 15px 40px rgb(0 0 0 / 0.05)
-  --scrollbar-track: rgb(15 23 42 / 0.08)
-  --nav-bg: rgb(255 255 255 / 0.75)
-  --nav-shadow: 0 10px 30px rgb(0 0 0 / 0.08)
-  --success: #047857
-  --warning: #b45309
-  --info: #1d4ed8
-  --danger: #b91c1c
-  --code-color: #be123c
 
 
 // —— Scrollbar personalizada ——
