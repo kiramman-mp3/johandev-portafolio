@@ -8,22 +8,23 @@
 :root
   color-scheme: dark
 
-  // Marca (igual en ambos temas)
-  --primary: #4d35ff
-  --primary-rgb: 77 53 255
-  --purple-bright: #a855f7
-  --purple-rgb: 168 85 247
-  --on-primary: #ffffff
+  // Marca: verde de páramo. --purple-* queda como tono secundario del mismo verde
+  // para que los degradados heredados se vean casi planos.
+  --primary: #6bbf8e
+  --primary-rgb: 107 191 142
+  --purple-bright: #8fd1aa
+  --purple-rgb: 143 209 170
+  --on-primary: #0e1a13
 
   // Tipografía
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif
-  --font-display: 'Space Grotesk', var(--font-sans)
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif
+  --font-display: var(--font-sans)
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
 
   // Tema oscuro (por defecto)
-  --bg-color: #070812
-  --text-color: #ffffff
-  --ink-rgb: 255 255 255
+  --bg-color: #15171a
+  --text-color: #e8e6e1
+  --ink-rgb: 232 230 225
   --text-muted: rgb(var(--ink-rgb) / 0.72)
   --text-muted-2: rgb(var(--ink-rgb) / 0.55)
   --text-muted-3: rgb(var(--ink-rgb) / 0.45)
@@ -31,7 +32,7 @@
   --border-strong: rgb(var(--ink-rgb) / 0.15)
   --surface: rgb(255 255 255 / 0.03)
   --surface-hover: rgb(255 255 255 / 0.05)
-  --surface-raised: linear-gradient(135deg, rgb(22 18 48 / 0.8) 0%, rgb(13 10 26 / 0.97) 100%)
+  --surface-raised: #1d2023
   --inset-bg: rgb(0 0 0 / 0.25)
   --field-bg: rgb(255 255 255 / 0.04)
   --field-bg-focus: rgb(255 255 255 / 0.07)
@@ -56,10 +57,14 @@
 
 html.light-theme
   color-scheme: light
-  --purple-bright: #8b5cf6
-  --bg-color: #f8fafc
-  --text-color: #0f172a
-  --ink-rgb: 15 23 42
+  --primary: #2f6b4c
+  --primary-rgb: 47 107 76
+  --purple-bright: #3f8560
+  --purple-rgb: 63 133 96
+  --on-primary: #ffffff
+  --bg-color: #f4f5f4
+  --text-color: #1b1e1c
+  --ink-rgb: 27 30 28
   --surface: rgb(255 255 255 / 0.8)
   --surface-hover: rgb(255 255 255 / 0.95)
   --surface-raised: #ffffff
@@ -83,7 +88,7 @@ html.light-theme
 // —— Scrollbar personalizada ——
 html
   scrollbar-width: thin
-  scrollbar-color: var(--primary) var(--scrollbar-track)
+  scrollbar-color: rgb(var(--ink-rgb) / 0.25) var(--scrollbar-track)
 
 html::-webkit-scrollbar
   width: 10px
@@ -92,11 +97,11 @@ html::-webkit-scrollbar-track
   background: var(--scrollbar-track)
 
 html::-webkit-scrollbar-thumb
-  background: linear-gradient(180deg, var(--primary), var(--purple-bright))
+  background: rgb(var(--ink-rgb) / 0.25)
   border-radius: 10px
 
 html::-webkit-scrollbar-thumb:hover
-  background: var(--purple-bright)
+  background: var(--primary)
 
 html::-webkit-scrollbar-thumb:active
   background: var(--primary)
@@ -165,33 +170,21 @@ main.main-outlet
 
 // Título de sección del inicio (Sobre mí, Servicios, Proyectos)
 .home-section-header
-  text-align: center
-  margin-bottom: 2.5rem
+  text-align: left
+  margin-bottom: 2rem
+  padding-bottom: 1rem
+  border-bottom: 1px solid var(--border)
 
   .section-title
-    position: relative
-    display: inline-block
-    font-size: 3rem
-    font-weight: 800
-    line-height: 1.1
+    font-size: 2rem
+    font-weight: 600
+    line-height: 1.2
     color: var(--text-color)
     margin: 0
-    padding-bottom: 1.25rem
-    letter-spacing: -1px
-
-    &::after
-      content: ''
-      position: absolute
-      bottom: 0
-      left: 50%
-      transform: translateX(-50%)
-      width: 56px
-      height: 3px
-      background: var(--primary)
-      border-radius: 2px
+    letter-spacing: -0.02em
 
     @include bp.down(sm)
-      font-size: 2rem
+      font-size: 1.6rem
 
 // Título de página (Servicios, Proyectos)
 .page-title
@@ -209,10 +202,7 @@ main.main-outlet
     letter-spacing: -1px
 
   .title-highlight
-    background: linear-gradient(135deg, var(--primary), var(--purple-bright))
-    -webkit-background-clip: text
-    -webkit-text-fill-color: transparent
-    background-clip: text
+    color: var(--primary)
 
 .page-subtitle
   font-size: 1.15rem
