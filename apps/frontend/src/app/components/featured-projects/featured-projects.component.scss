@@ -44,7 +44,6 @@
   &:hover {
     background: var(--surface-hover);
     border-color: rgb(var(--primary-rgb) / 0.4);
-    transform: translateY(-4px);
   }
 }
 
@@ -69,9 +68,6 @@
     transition: transform 0.4s ease;
   }
 
-  .project-card:hover & img {
-    transform: scale(1.03);
-  }
 }
 
 .project-content {
@@ -84,8 +80,32 @@
     padding: 1.25rem;
   }
 
-  .view-more-btn {
-    margin-top: 1.25rem;
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-size: 0.9rem;
+
+    a {
+      color: var(--text-color);
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: rgb(var(--ink-rgb) / 0.3);
+      text-underline-offset: 4px;
+      transition: text-decoration-color 0.2s ease;
+
+      &:hover {
+        text-decoration-color: var(--primary);
+      }
+
+      i {
+        font-size: 0.85em;
+        color: var(--text-muted-2);
+        margin-right: 0.2rem;
+      }
+    }
   }
 }
 
