@@ -129,3 +129,37 @@ export function paintMilkyWay(width: number, height: number, dpr: number): HTMLC
   ctx.globalCompositeOperation = 'source-over';
   return off;
 }
+
+// Estrella fugaz en el punto p (0 a 1) de su recorrido; se enciende y apaga en los extremos
+export function drawShootingStar(
+  ctx: CanvasRenderingContext2D,
+  from: { x: number; y: number },
+  to: { x: number; y: number },
+  p: number,
+  tail = 220
+): void {
+  if (p < 0 || p > 1) return;
+  const hx = from.x + (to.x - from.x) * p;
+  const hy = from.y + (to.y - from.y) * p;
+  const fade = Math.sin(p * Math.PI);
+  const angle = Math.atan2(to.y - from.y, to.x - from.x);
+  const tx = hx - Math.cos(angle) * tail;
+  const ty = hy - Math.sin(angle) * tail;
+
+  const trail = ctx.createLinearGradient(hx, hy, tx, ty);
+  trail.addColorStop(0, `rgb(255 255 255 / ${0.9 * fade})`);
+  trail.addColorStop(0.3, `rgb(200 235 215 / ${0.4 * fade})`);
+  trail.addColorStop(1, 'rgb(200 235 215 / 0)');
+  ctx.strokeStyle = trail;
+  ctx.lineWidth = 1.6;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(hx, hy);
+  ctx.lineTo(tx, ty);
+  ctx.stroke();
+
+  ctx.fillStyle = `rgb(255 255 255 / ${fade})`;
+  ctx.beginPath();
+  ctx.arc(hx, hy, 1.8, 0, Math.PI * 2);
+  ctx.fill();
+}
