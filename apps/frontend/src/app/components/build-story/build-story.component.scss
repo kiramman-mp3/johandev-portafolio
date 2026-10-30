@@ -205,7 +205,9 @@
 
     @include bp.down(lg) {
       min-height: 0;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
   }
 
