@@ -59,7 +59,7 @@
 
 .contact-title {
   font-size: clamp(2.2rem, 4vw, 3rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.15;
   color: var(--text-color);
   letter-spacing: -0.8px;
@@ -91,7 +91,7 @@
 
     .feature-icon {
       display: inline-flex;
-      color: rgb(var(--info-rgb));
+      color: var(--primary);
       font-size: 1.25rem;
     }
   }
