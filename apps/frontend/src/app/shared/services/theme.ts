@@ -23,13 +23,8 @@ export class ThemeService {
 
   private initTheme(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        this.isDarkMode.set(savedTheme === 'dark');
-      } else {
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        this.isDarkMode.set(prefersDark);
-      }
+      // Oscuro por defecto; solo cambia si el visitante eligió claro antes
+      this.isDarkMode.set(localStorage.getItem('theme') !== 'light');
     }
   }
 
