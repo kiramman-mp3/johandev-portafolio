@@ -169,7 +169,7 @@ export class IntroSkyComponent implements OnDestroy {
 
     // Halo que ilumina el fondo alrededor de la cabeza
     const glow = ctx.createRadialGradient(hx, hy, 0, hx, hy, 260);
-    glow.addColorStop(0, `rgb(200 235 215 / ${0.28 * fade})`);
+    glow.addColorStop(0, `rgb(255 200 195 / ${0.28 * fade})`);
     glow.addColorStop(1, 'rgb(0 0 0 / 0)');
     ctx.fillStyle = glow;
     ctx.fillRect(hx - 260, hy - 260, 520, 520);
@@ -181,8 +181,8 @@ export class IntroSkyComponent implements OnDestroy {
     const ty = hy - Math.sin(angle) * tail;
     const trail = ctx.createLinearGradient(hx, hy, tx, ty);
     trail.addColorStop(0, `rgb(255 255 255 / ${0.95 * fade})`);
-    trail.addColorStop(0.25, `rgb(200 235 215 / ${0.5 * fade})`);
-    trail.addColorStop(1, 'rgb(200 235 215 / 0)');
+    trail.addColorStop(0.25, `rgb(255 200 195 / ${0.5 * fade})`);
+    trail.addColorStop(1, 'rgb(255 200 195 / 0)');
     ctx.strokeStyle = trail;
     ctx.lineWidth = 2.2;
     ctx.lineCap = 'round';

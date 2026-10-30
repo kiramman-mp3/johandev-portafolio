@@ -69,7 +69,7 @@ export function paintMilkyWay(width: number, height: number, dpr: number): HTMLC
     y: y0 + dy * p + ny * (wave(p) + offset)
   });
 
-  // 1. Resplandor difuso: cálido en el centro y el núcleo, azulado en los bordes
+  // 1. Resplandor difuso: cálido en el centro y el núcleo, rojizo en los bordes
   ctx.globalCompositeOperation = 'lighter';
   for (let i = 0; i < 420; i++) {
     const p = Math.random();
@@ -79,7 +79,7 @@ export function paintMilkyWay(width: number, height: number, dpr: number): HTMLC
     const { x, y } = at(p, offset);
     const radius = spread * (0.2 + Math.random() * 0.35) * (1 + b * 0.35);
     const alpha = (0.045 + b * 0.03) * patch(p) * (1 - edge * 0.6);
-    const color = edge < 0.35 ? (b > 0.4 ? '255 226 192' : '232 228 222') : (Math.random() < 0.2 ? '220 170 190' : '165 185 235');
+    const color = edge < 0.35 ? (b > 0.4 ? '255 190 170' : '240 214 208') : (Math.random() < 0.2 ? '200 90 120' : '235 110 115');
     streak(x, y, radius, 2.4, color, alpha);
   }
 
@@ -108,7 +108,7 @@ export function paintMilkyWay(width: number, height: number, dpr: number): HTMLC
     const center = 1 - Math.min(1, Math.abs(offset) / (spread * 1.2));
     const a = 0.08 + Math.random() * 0.45 * center + bulge(p) * 0.08;
     const warm = bulge(p) > 0.3 && Math.random() < 0.5;
-    ctx.fillStyle = warm ? `rgb(255 225 190 / ${a})` : `rgb(225 232 255 / ${a})`;
+    ctx.fillStyle = warm ? `rgb(255 200 185 / ${a})` : `rgb(225 232 255 / ${a})`;
     const size = Math.random() < 0.97 ? 0.6 : 1.2;
     ctx.fillRect(x, y, size, size);
   }
@@ -148,8 +148,8 @@ export function drawShootingStar(
 
   const trail = ctx.createLinearGradient(hx, hy, tx, ty);
   trail.addColorStop(0, `rgb(255 255 255 / ${0.9 * fade})`);
-  trail.addColorStop(0.3, `rgb(200 235 215 / ${0.4 * fade})`);
-  trail.addColorStop(1, 'rgb(200 235 215 / 0)');
+  trail.addColorStop(0.3, `rgb(255 200 195 / ${0.4 * fade})`);
+  trail.addColorStop(1, 'rgb(255 200 195 / 0)');
   ctx.strokeStyle = trail;
   ctx.lineWidth = 1.6;
   ctx.lineCap = 'round';
