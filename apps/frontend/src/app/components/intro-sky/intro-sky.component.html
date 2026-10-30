@@ -1,0 +1,10 @@
+@if (!done()) {
+  <div class="intro" [class.is-leaving]="leaving()" role="presentation">
+    <canvas #sky class="intro-sky" aria-hidden="true"></canvas>
+    <div class="intro-copy">
+      <p #title class="intro-title">Hay un nuevo desarrollador en la ciudad</p>
+      <p class="intro-subtitle" [class.is-visible]="showSubtitle()">Johan Rodríguez, desarrollador de software</p>
+    </div>
+    <button type="button" class="intro-skip" (click)="skip()">Saltar intro</button>
+  </div>
+}

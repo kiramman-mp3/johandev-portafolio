@@ -21,6 +21,20 @@
         if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light-theme');
       } catch (e) {}
     })();
+    // Intro del cielo: una vez por sesión y nunca con movimiento reducido.
+    // intro-active bloquea el scroll; se retira sola a los 9 s por si Angular no arranca.
+    (function () {
+      var root = document.documentElement;
+      var seen = false;
+      try { seen = sessionStorage.getItem('intro-seen') === '1'; } catch (e) {}
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (seen || reduce) {
+        root.classList.add('skip-intro');
+      } else {
+        root.classList.add('intro-active');
+        setTimeout(function () { root.classList.remove('intro-active'); }, 9000);
+      }
+    })();
   </script>
   <style>
     html {
@@ -29,6 +43,10 @@
 
     html.light-theme {
       background-color: #e9f0ec;
+    }
+
+    html.intro-active {
+      overflow: hidden;
     }
   </style>
 </head>
