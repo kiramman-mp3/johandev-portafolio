@@ -13,26 +13,38 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/img/Novacore-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@1,9..144,300..700,100,1&display=swap">
   <!-- Aplica el tema guardado antes del primer pintado: el HTML prerenderizado siempre sale en oscuro -->
   <script>
     (function () {
       try {
-        var saved = localStorage.getItem('theme');
-        var light = saved ? saved === 'light' : !window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (light) document.documentElement.classList.add('light-theme');
+        if (localStorage.getItem('theme') === 'light') document.documentElement.classList.add('light-theme');
       } catch (e) {}
+    })();
+    // Intro del cielo: sale en cada carga, salvo con movimiento reducido.
+    // intro-active bloquea el scroll; se retira sola a los 9 s por si Angular no arranca.
+    (function () {
+      var root = document.documentElement;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) {
+        root.classList.add('skip-intro');
+      } else {
+        root.classList.add('intro-active');
+        setTimeout(function () { root.classList.remove('intro-active'); }, 9000);
+      }
     })();
   </script>
   <style>
-    html,
-    body {
-      background-color: #070812;
+    html {
+      background-color: #04060a;
     }
 
-    html.light-theme,
-    html.light-theme body {
-      background-color: #f8fafc;
+    html.light-theme {
+      background-color: #e9f0ec;
+    }
+
+    html.intro-active {
+      overflow: hidden;
     }
   </style>
 </head>

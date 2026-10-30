@@ -3,7 +3,7 @@
 .services-page-section {
   position: relative;
   width: 100%;
-  background: var(--bg-color);
+  background: transparent;
   padding: 120px 8% 80px;
   color: var(--text-color);
   overflow: hidden;
@@ -150,10 +150,9 @@
 
 .service-card-title {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text-color);
   margin: 0;
-  letter-spacing: -0.5px;
 }
 
 .service-main-desc {

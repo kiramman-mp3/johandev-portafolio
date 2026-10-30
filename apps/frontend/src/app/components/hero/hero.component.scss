@@ -2,390 +2,255 @@
 
 .hero {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
     overflow: hidden;
     color: var(--text-color);
-    text-align: center;
-    z-index: 10;
     background: transparent;
 
-    @include bp.down(md) {
-        min-height: 140vh;
-        height: auto;
-        padding: 2rem 0 2.5rem;
+    @include bp.down(lg) {
+        min-height: auto;
     }
+}
 
-    // --- ORBES DE FONDO (Morado/Azul) ---
-    &::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 500px;
-        height: 500px;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(circle, rgb(var(--primary-rgb) / 0.6), transparent 70%);
-        filter: blur(80px);
-        animation: float1 15s ease-in-out infinite;
-        z-index: -2;
+// --- PALABRA DE FONDO ---
+// "Hola Mundo" enorme detrás de la foto, encendido con los colores de la intro
+.hero-word {
+    position: absolute;
+    top: 13vh;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    z-index: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    font-family: var(--font-story);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    font-size: clamp(5.5rem, 17vw, 19rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: transparent;
+    background: linear-gradient(100deg, rgb(var(--primary-rgb) / 0.26), rgb(var(--purple-rgb) / 0.2) 55%, rgb(var(--primary-rgb) / 0.1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: word-in 1.2s ease-out both;
+
+    @include bp.down(lg) {
+        top: 5.5rem;
+        font-size: clamp(4rem, 21vw, 9rem);
     }
+}
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 30%;
-        left: 20%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgb(59 130 246 / 0.5), transparent 70%);
-        filter: blur(90px);
-        animation: float2 18s ease-in-out infinite;
-        z-index: -2;
-    }
+// --- DISPOSICIÓN ---
+// Escritorio: texto | foto | terminal. Móvil: foto, texto y terminal apilados.
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1320px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 6rem 2rem 0;
+    display: grid;
+    grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.5fr) minmax(280px, 0.85fr);
+    grid-template-areas: "text photo terminal";
+    gap: 1.5rem;
+    align-items: center;
 
-    .color-orb-1 {
-        position: absolute;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgb(var(--purple-rgb) / 0.5), transparent 70%);
-        filter: blur(100px);
-        top: 60%;
-        right: -10%;
-        animation: float3 20s ease-in-out infinite;
-        z-index: -2;
-    }
-
-    .color-orb-2 {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(circle, rgb(var(--primary-rgb) / 0.5), transparent 70%);
-        filter: blur(85px);
-        bottom: -5%;
-        left: 40%;
-        animation: float4 17s ease-in-out infinite;
-        z-index: -2;
-    }
-
-    .color-orb-3 {
-        position: absolute;
-        width: 450px;
-        height: 450px;
-        background: radial-gradient(circle, rgb(25 20 116 / 0.8), transparent 70%);
-        filter: blur(95px);
-        top: 20%;
-        right: 15%;
-        animation: float5 19s ease-in-out infinite;
-        z-index: -2;
-    }
-
-    .color-orb-4 {
-        position: absolute;
-        width: 550px;
-        height: 550px;
-        background: radial-gradient(circle, rgb(124 58 237 / 0.4), transparent 70%);
-        filter: blur(100px);
-        top: 10%;
-        left: -5%;
-        animation: float6 22s ease-in-out infinite;
-        z-index: -2;
-    }
-
-    .color-orb-5 {
-        position: absolute;
-        width: 480px;
-        height: 480px;
-        background: radial-gradient(circle, rgb(59 130 246 / 0.4), transparent 70%);
-        filter: blur(90px);
-        bottom: 10%;
-        right: 10%;
-        animation: float7 21s ease-in-out infinite;
-        z-index: -2;
-    }
-
-    // --- CAPA OSCURA GLOBAL ---
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgb(5 4 9 / 0.356);
-        z-index: 3;
-        pointer-events: none;
-    }
-
-    // --- CONTENIDO Y DISPOSICIÓN DE TEXTO ---
-    .hero-content {
-        position: relative;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
+    @include bp.down(lg) {
+        grid-template-columns: 1fr;
+        grid-template-areas: "photo" "text" "terminal";
+        padding: 6.5rem 1.25rem 3rem;
         gap: 2rem;
-        align-items: center;
-        width: 100%;
-        height: 100%;
+    }
+}
 
-        @include bp.down(lg) {
-            grid-template-columns: 1fr;
-            text-align: center;
-            padding-top: 5rem;
-            padding-bottom: 2rem;
-        }
+// --- FOTO ---
+// Apoyada en el borde inferior del hero y fundida con el cielo hacia abajo
+.hero-photo {
+    grid-area: photo;
+    align-self: end;
+    margin: 0;
+    animation: photo-in 0.9s ease-out 0.15s both;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 88vh;
+        object-fit: contain;
+        object-position: bottom;
+        -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+        // Borde de luz menta, como si la iluminara la estrella fugaz
+        filter: drop-shadow(0 0 28px rgb(var(--primary-rgb) / 0.16));
+    }
+
+    @include bp.down(lg) {
+        width: min(78vw, 420px);
+        justify-self: center;
+        margin-top: 2rem;
+        margin-bottom: -1rem;
+    }
+}
+
+// --- TEXTO ---
+// Entrada única al cargar: el texto primero y luego la terminal.
+.hero-text {
+    grid-area: text;
+    animation: hero-in 0.6s ease-out both;
+
+    h1 {
+        font-size: clamp(2.6rem, 4.6vw, 4.2rem);
+        font-weight: 400;
+        line-height: 1.02;
+        margin: 0;
+    }
+
+    .hero-role {
+        font-family: var(--font-mono);
+        font-size: 1rem;
+        color: var(--primary);
+        margin: 1rem 0 1.75rem;
+    }
+
+    .hero-lead {
+        font-size: 1.15rem;
+        line-height: 1.65;
+        color: var(--text-muted);
+        max-width: 34em;
+        margin: 0 0 2.25rem;
 
         @include bp.down(md) {
-            position: static;
-            padding: 4rem 1.25rem 1.5rem;
-            gap: 1.5rem;
-        }
-
-        .hero-text {
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 5;
-
-            @include bp.down(lg) {
-                text-align: center;
-                align-items: center;
-            }
-
-            @include bp.down(md) {
-                position: relative;
-                z-index: 10;
-                width: 100%;
-            }
-
-            h1 {
-                display: block;
-                font-weight: 700;
-                line-height: 1.1;
-                margin: 0 0 2rem 0;
-
-                .main-text {
-                    display: block;
-                    font-size: clamp(3.5rem, 8vw, 5.5rem);
-                    color: var(--text-color);
-                    letter-spacing: -1px;
-
-                    @include bp.down(md) {
-                        font-size: clamp(2.25rem, 8vw, 3.5rem);
-                    }
-                }
-
-                .highlight {
-                    display: block;
-                    font-size: clamp(2.5rem, 5vw, 3.8rem);
-                    margin-top: 0.5rem;
-                    background: linear-gradient(135deg, var(--primary), var(--purple-bright));
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    font-weight: 700;
-
-                    @include bp.down(md) {
-                        font-size: clamp(1.75rem, 5vw, 2.5rem);
-                    }
-                }
-            }
-
-            p {
-                font-size: 1.25rem;
-                line-height: 1.6;
-                color: var(--text-muted);
-                max-width: 520px;
-                margin: 0 0 3rem 0;
-
-                @include bp.down(lg) {
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-
-                @include bp.down(md) {
-                    font-size: 1rem;
-                    margin-bottom: 2rem;
-                }
-            }
-
-            .reveal-btn {
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-                width: fit-content;
-
-                @include bp.down(lg) {
-                    justify-content: center;
-                }
-            }
-        }
-
-        // --- ELEMENTO VISUAL E ICONOS ---
-        .hero-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            position: relative;
-            height: 100%;
-            min-height: 400px;
-
-            @include bp.down(lg) {
-                min-height: 280px;
-            }
-
-            // En móvil los iconos flotan detrás del texto, ocupando todo el hero
-            @include bp.down(md) {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                pointer-events: none;
-            }
-
-            .visual-element {
-                width: 350px;
-                height: 350px;
-                border-radius: 50%;
-                background: radial-gradient(circle at 30% 30%, rgb(var(--primary-rgb) / 0.3), rgb(var(--purple-rgb) / 0.2));
-                filter: blur(40px);
-                animation: pulse-visual 4s ease-in-out infinite;
-
-                @include bp.down(lg) {
-                    width: 280px;
-                    height: 280px;
-                }
-
-                @include bp.down(md) {
-                    opacity: 0.3;
-                }
-            }
-
-            .tech-icons-container {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 3;
-
-                @include bp.down(md) {
-                    display: block;
-                    z-index: 2;
-                    pointer-events: none;
-                }
-            }
-
-            .tech-icon {
-                position: absolute;
-                font-size: 4.5rem;
-                color: var(--text-color);
-                opacity: 0.9;
-                filter: blur(20px);
-                animation: techPopup 12s ease-in-out infinite;
-                width: 120px;
-                height: 120px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: filter 0.3s ease, color 0.3s ease;
-                text-shadow: 0 0 20px var(--primary);
-
-                &:hover {
-                    filter: blur(0px);
-                    opacity: 1;
-                }
-
-                @include bp.down(md) {
-                    width: 70px;
-                    height: 70px;
-                    font-size: 2.2rem;
-                    opacity: 0.5;
-                    filter: blur(4px);
-                    text-shadow: 0 0 10px var(--primary);
-                    pointer-events: none;
-                }
-
-                // Sin animación los iconos quedarían borrosos: se muestran nítidos y tenues
-                @media (prefers-reduced-motion: reduce) {
-                    animation: none;
-                    filter: none;
-                    opacity: 0.35;
-                }
-            }
+            font-size: 1.05rem;
         }
     }
 }
 
-// --- KEYFRAMES ---
-@keyframes float1 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-    25% { transform: translate(-30%, -70%) scale(1.2); opacity: 0.8; }
-    50% { transform: translate(-20%, -40%) scale(0.9); opacity: 0.7; }
-    75% { transform: translate(-60%, -80%) scale(1.15); opacity: 0.75; }
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-@keyframes float2 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-    25% { transform: translate(40%, 20%) scale(1.15); opacity: 0.7; }
-    50% { transform: translate(20%, 50%) scale(1.1); opacity: 0.8; }
-    75% { transform: translate(50%, 30%) scale(0.95); opacity: 0.65; }
+.hero-link {
+    color: var(--text-color);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--ink-rgb) / 0.35);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s ease;
+
+    &:hover {
+        text-decoration-color: var(--primary);
+    }
 }
 
-@keyframes float3 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
-    25% { transform: translate(-40%, -30%) scale(1.15); opacity: 0.6; }
-    50% { transform: translate(-20%, 40%) scale(1.05); opacity: 0.7; }
-    75% { transform: translate(-50%, -10%) scale(1.2); opacity: 0.55; }
+// --- TERMINAL ---
+.hero-terminal {
+    grid-area: terminal;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    animation: hero-in 0.6s ease-out 0.25s both;
+
+    @include bp.down(md) {
+        font-size: 0.8rem;
+    }
 }
 
-@keyframes float4 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-    25% { transform: translate(-20%, -50%) scale(1.1); opacity: 0.7; }
-    50% { transform: translate(30%, -30%) scale(0.95); opacity: 0.65; }
-    75% { transform: translate(10%, -60%) scale(1.15); opacity: 0.75; }
+.terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+
+    .terminal-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgb(var(--ink-rgb) / 0.18);
+    }
+
+    .terminal-title {
+        margin-left: 0.75rem;
+        color: var(--text-muted-2);
+        font-size: 0.8rem;
+    }
 }
 
-@keyframes float5 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
-    25% { transform: translate(-50%, 30%) scale(1.2); opacity: 0.6; }
-    50% { transform: translate(-30%, -20%) scale(1.05); opacity: 0.7; }
-    75% { transform: translate(-60%, 50%) scale(0.9); opacity: 0.55; }
+.terminal-body {
+    padding: 1.1rem 1.25rem 1.3rem;
+
+    .line {
+        margin: 0 0 0.35rem;
+        line-height: 1.55;
+        overflow-wrap: anywhere;
+
+        &.out {
+            color: var(--text-muted);
+            margin-bottom: 0.9rem;
+        }
+
+        &.out + .out {
+            margin-top: -0.6rem;
+        }
+
+        &.muted {
+            color: var(--text-muted-2);
+        }
+    }
+
+    .prompt {
+        color: var(--primary);
+        margin-right: 0.4rem;
+    }
+
+    .sha {
+        color: var(--warning);
+    }
+
+    a {
+        color: var(--text-color);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--primary);
+        }
+    }
+
+    .cursor {
+        display: inline-block;
+        width: 0.55em;
+        height: 1.05em;
+        margin-left: 0.25rem;
+        vertical-align: text-bottom;
+        background: var(--primary);
+        animation: blink 1.1s steps(1) infinite;
+    }
 }
 
-@keyframes float6 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.45; }
-    25% { transform: translate(60%, -40%) scale(1.15); opacity: 0.65; }
-    50% { transform: translate(30%, 20%) scale(1.1); opacity: 0.75; }
-    75% { transform: translate(50%, -60%) scale(0.95); opacity: 0.6; }
+@keyframes hero-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
 }
 
-@keyframes float7 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.45; }
-    25% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.65; }
-    50% { transform: translate(-20%, 30%) scale(1.05); opacity: 0.7; }
-    75% { transform: translate(-60%, -20%) scale(1.2); opacity: 0.6; }
+@keyframes word-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-@keyframes techPopup {
-    0% { opacity: 0; filter: blur(18px); transform: scale(0.1); }
-    15% { opacity: 0.4; filter: blur(12px); transform: scale(0.5); }
-    30% { opacity: 0.8; filter: blur(4px); transform: scale(0.85); }
-    45% { opacity: 1; filter: blur(0px); transform: scale(1); }
-    55% { opacity: 1; filter: blur(0px); transform: scale(1.3); }
-    70% { opacity: 1; filter: blur(0px); transform: scale(1.2); }
-    85% { opacity: 0.6; filter: blur(10px); transform: scale(0.6); }
-    100% { opacity: 0; filter: blur(18px); transform: scale(0.1); }
+@keyframes photo-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
 }
 
-@keyframes pulse-visual {
-    0%, 100% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.1); opacity: 0.8; }
+@keyframes blink {
+    50% { opacity: 0; }
 }

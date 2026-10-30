@@ -25,9 +25,15 @@
               </span>
             </div>
           </div>
-          <a [routerLink]="['/proyectos', project.id]" class="view-more-btn">
-            Ver más <i class="fas fa-arrow-right"></i>
-          </a>
+          <div class="project-links">
+            <a [routerLink]="['/proyectos', project.id]">Detalles</a>
+            <a *ngIf="project.githubUrl" [href]="project.githubUrl" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github" aria-hidden="true"></i> Código
+            </a>
+            <a *ngIf="project.webUrl" [href]="project.webUrl" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Demo
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +41,7 @@
     <!-- View All Button -->
     <div class="view-all-container">
       <a routerLink="/proyectos" class="btn-view-all">
-        Ver todos los proyectos <i class="fas fa-chevron-right"></i>
+        Ver todos los proyectos
       </a>
     </div>
   </div>

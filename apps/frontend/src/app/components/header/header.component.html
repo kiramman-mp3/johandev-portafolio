@@ -1,26 +1,27 @@
 <nav class="navbar" [ngClass]="getNavbarClasses()" id="main-nav" aria-label="Principal">
+  <div class="nav-shell glass">
+    <a href="/" class="logo-container" (click)="scrollToSection('inicio'); $event.preventDefault()">
+      <img ngSrc="/img/novacore.png" width="36" height="36" priority alt="" class="logo-image" />
+      <span class="logo-text">Johan Rodríguez</span>
+    </a>
 
-  <a href="/" class="logo-container" (click)="scrollToSection('inicio'); $event.preventDefault()">
-    <img ngSrc="/img/novacore.png" width="56" height="56" priority alt="NovaCore" class="logo-image" />
-    <span class="logo-text">
-      <span class="logo-top">Johan Rodríguez</span>
-      <span class="logo-main">DEVELOPER</span>
-    </span>
-  </a>
-  <button type="button" class="menu-toggle" [class.open]="isMenuOpen()" (click)="toggleMenu()" id="menu-toggle"
-    aria-controls="nav-links" [attr.aria-expanded]="isMenuOpen()" aria-label="Abrir menú">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links" [class.active]="isMenuOpen()" id="nav-links">
-    <a href="/" (click)="navigateToHome(); $event.preventDefault()">Inicio</a>
-    <a href="/servicios" (click)="navigateToServices(); $event.preventDefault()">Servicios</a>
-    <a href="/proyectos" (click)="navigateToProjects(); $event.preventDefault()">Proyectos</a>
-    <a href="/certificados" (click)="navigateToCertificates(); $event.preventDefault()">Certificados</a>
-    <a href="/contacto" (click)="navigateToContact(); $event.preventDefault()">Contacto</a>
+    <div class="nav-links" [class.active]="isMenuOpen()" id="nav-links">
+      <a href="/" [class.is-active]="isActive('/')" (click)="navigateToHome(); $event.preventDefault()">Inicio</a>
+      <a href="/servicios" [class.is-active]="isActive('/servicios')" (click)="navigateToServices(); $event.preventDefault()">Servicios</a>
+      <a href="/proyectos" [class.is-active]="isActive('/proyectos')" (click)="navigateToProjects(); $event.preventDefault()">Proyectos</a>
+      <a href="/certificados" [class.is-active]="isActive('/certificados')" (click)="navigateToCertificates(); $event.preventDefault()">Certificados</a>
+      <a href="/contacto" [class.is-active]="isActive('/contacto')" (click)="navigateToContact(); $event.preventDefault()">Contacto</a>
+    </div>
 
-    <button class="theme-toggle-btn" (click)="toggleTheme()"
-      [attr.aria-label]="themeService.isDarkMode() ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'">
-      <i class="fas" [ngClass]="themeService.isDarkMode() ? 'fa-sun' : 'fa-moon'" aria-hidden="true"></i>
-    </button>
+    <div class="nav-actions">
+      <button type="button" class="theme-toggle-btn" (click)="toggleTheme()"
+        [attr.aria-label]="themeService.isDarkMode() ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'">
+        <i class="fas" [ngClass]="themeService.isDarkMode() ? 'fa-sun' : 'fa-moon'" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="menu-toggle" [class.open]="isMenuOpen()" (click)="toggleMenu()" id="menu-toggle"
+        aria-controls="nav-links" [attr.aria-expanded]="isMenuOpen()" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>

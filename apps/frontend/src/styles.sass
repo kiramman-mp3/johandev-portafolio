@@ -8,30 +8,44 @@
 :root
   color-scheme: dark
 
-  // Marca (igual en ambos temas)
-  --primary: #4d35ff
-  --primary-rgb: 77 53 255
-  --purple-bright: #a855f7
-  --purple-rgb: 168 85 247
-  --on-primary: #ffffff
+  // Marca, tomada del cielo de la intro: verde menta del resplandor y crema del núcleo
+  // de la galaxia. --purple-* quedó como nombre heredado del tono secundario.
+  --primary: #9ad6b6
+  --primary-rgb: 154 214 182
+  --purple-bright: #f2d6a8
+  --purple-rgb: 242 214 168
+  --on-primary: #08130d
 
   // Tipografía
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif
-  --font-display: 'Space Grotesk', var(--font-sans)
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif
+  --font-display: var(--font-sans)
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
+  // Títulos: la itálica suave de la intro, con aire de título de película
+  --font-story: 'Fraunces', Georgia, 'Times New Roman', serif
 
-  // Tema oscuro (por defecto)
-  --bg-color: #070812
-  --text-color: #ffffff
-  --ink-rgb: 255 255 255
+  // Tema oscuro (por defecto): cielo nocturno. Las estrellas las pinta <app-starfield>
+  --bg-color: #04060a
+  --bg-depth: radial-gradient(70rem 45rem at 50% 120%, rgb(40 70 90 / 0.18), transparent 70%)
+
+  // Vidrio ahumado: deja ver las estrellas difuminadas sin perder contraste sobre la galaxia
+  --glass-bg: rgb(10 14 22 / 0.55)
+  --glass-bg-strong: rgb(16 22 32 / 0.7)
+  --glass-border: rgb(255 255 255 / 0.08)
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.06)
+  --glass-shadow: 0 24px 60px rgb(0 0 0 / 0.5)
+  --glass-blur: blur(22px) saturate(140%)
+  --radius-panel: 28px
+  --radius-card: 20px
+  --text-color: #e8e6e1
+  --ink-rgb: 232 230 225
   --text-muted: rgb(var(--ink-rgb) / 0.72)
   --text-muted-2: rgb(var(--ink-rgb) / 0.55)
   --text-muted-3: rgb(var(--ink-rgb) / 0.45)
   --border: rgb(var(--ink-rgb) / 0.08)
   --border-strong: rgb(var(--ink-rgb) / 0.15)
-  --surface: rgb(255 255 255 / 0.03)
-  --surface-hover: rgb(255 255 255 / 0.05)
-  --surface-raised: linear-gradient(135deg, rgb(22 18 48 / 0.8) 0%, rgb(13 10 26 / 0.97) 100%)
+  --surface: var(--glass-bg)
+  --surface-hover: var(--glass-bg-strong)
+  --surface-raised: rgb(0 0 0 / 0.28)
   --inset-bg: rgb(0 0 0 / 0.25)
   --field-bg: rgb(255 255 255 / 0.04)
   --field-bg-focus: rgb(255 255 255 / 0.07)
@@ -56,13 +70,23 @@
 
 html.light-theme
   color-scheme: light
-  --purple-bright: #8b5cf6
-  --bg-color: #f8fafc
-  --text-color: #0f172a
-  --ink-rgb: 15 23 42
-  --surface: rgb(255 255 255 / 0.8)
-  --surface-hover: rgb(255 255 255 / 0.95)
-  --surface-raised: #ffffff
+  --primary: #2f6b4c
+  --primary-rgb: 47 107 76
+  --purple-bright: #3f8560
+  --purple-rgb: 63 133 96
+  --on-primary: #ffffff
+  --bg-color: #e9f0ec
+  --bg-depth: radial-gradient(60rem 40rem at 15% -10%, rgb(160 205 180 / 0.55), transparent 60%), radial-gradient(50rem 35rem at 95% 25%, rgb(200 225 212 / 0.6), transparent 65%), radial-gradient(45rem 30rem at 40% 110%, rgb(170 210 190 / 0.45), transparent 60%)
+  --glass-bg: rgb(255 255 255 / 0.55)
+  --glass-bg-strong: rgb(255 255 255 / 0.72)
+  --glass-border: rgb(20 50 35 / 0.09)
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.9)
+  --glass-shadow: 0 24px 60px rgb(20 50 35 / 0.08)
+  --text-color: #16201b
+  --ink-rgb: 22 32 27
+  --surface: var(--glass-bg)
+  --surface-hover: var(--glass-bg-strong)
+  --surface-raised: rgb(255 255 255 / 0.7)
   --inset-bg: rgb(15 23 42 / 0.03)
   --field-bg: #ffffff
   --field-bg-focus: #ffffff
@@ -83,7 +107,7 @@ html.light-theme
 // —— Scrollbar personalizada ——
 html
   scrollbar-width: thin
-  scrollbar-color: var(--primary) var(--scrollbar-track)
+  scrollbar-color: rgb(var(--ink-rgb) / 0.25) var(--scrollbar-track)
 
 html::-webkit-scrollbar
   width: 10px
@@ -92,11 +116,11 @@ html::-webkit-scrollbar-track
   background: var(--scrollbar-track)
 
 html::-webkit-scrollbar-thumb
-  background: linear-gradient(180deg, var(--primary), var(--purple-bright))
+  background: rgb(var(--ink-rgb) / 0.25)
   border-radius: 10px
 
 html::-webkit-scrollbar-thumb:hover
-  background: var(--purple-bright)
+  background: var(--primary)
 
 html::-webkit-scrollbar-thumb:active
   background: var(--primary)
@@ -110,9 +134,16 @@ html, body
   margin: 0
   padding: 0
   height: 100%
+
+html
   background-color: var(--bg-color)
   color: var(--text-color)
   transition: background-color 0.5s ease, color 0.5s ease
+
+// El fondo con profundidad va en html: body mide 100% de alto y lo cortaría tras la primera pantalla
+html
+  background-image: var(--bg-depth)
+  background-attachment: fixed
 
 body
   font-family: var(--font-sans)
@@ -121,6 +152,14 @@ body
 
 h1, h2, h3, h4
   font-family: var(--font-display)
+
+// Títulos grandes en la itálica de la intro
+h1, h2
+  font-family: var(--font-story)
+  font-style: italic
+  font-weight: 400
+  font-variation-settings: 'SOFT' 100, 'WONK' 1
+  letter-spacing: -0.01em
 
 button, input, select, textarea
   font: inherit
@@ -133,15 +172,31 @@ code, pre, kbd
   outline-offset: 3px
 
 main.main-outlet
-  background-color: var(--bg-color)
+  background-color: transparent
 
+// Panel de vidrio: base de las tarjetas grandes del sitio
+.glass
+  background: var(--glass-bg)
+  border: 1px solid var(--glass-border)
+  border-radius: var(--radius-panel)
+  box-shadow: var(--glass-highlight), var(--glass-shadow)
+  backdrop-filter: var(--glass-blur)
+  -webkit-backdrop-filter: var(--glass-blur)
+
+
+// —— Intro del cielo ——
+// Mientras dura la intro la página no hace scroll y la entrada del hero espera a que termine
+html.intro-active
+  overflow: hidden
+
+  .hero-text, .hero-terminal, .hero-word, .hero-photo
+    animation-play-state: paused
 
 // —— Animaciones de entrada ——
 // Aparición suave solo del contenido debajo de los títulos.
 // Sin opacity 0 para evitar parpadeo blanco en PCs lentas al hacer scroll o entrar a la sección
 .page-content-reveal
   animation: page-reveal 0.4s ease-out
-  background-color: var(--bg-color)
 
 @keyframes page-reveal
   0%
@@ -154,7 +209,6 @@ main.main-outlet
   opacity: 0
   transform: translateY(32px)
   transition: opacity 0.55s ease-out, transform 0.55s ease-out
-  background-color: var(--bg-color)
 
   &.scroll-reveal-visible
     opacity: 1
@@ -165,37 +219,25 @@ main.main-outlet
 
 // Título de sección del inicio (Sobre mí, Servicios, Proyectos)
 .home-section-header
-  text-align: center
-  margin-bottom: 2.5rem
+  text-align: left
+  margin-bottom: 2rem
+  padding-bottom: 1rem
+  border-bottom: 1px solid var(--border)
 
   .section-title
-    position: relative
-    display: inline-block
-    font-size: 3rem
-    font-weight: 800
-    line-height: 1.1
+    font-size: 2.4rem
+    font-weight: 400
+    line-height: 1.2
     color: var(--text-color)
     margin: 0
-    padding-bottom: 1.25rem
-    letter-spacing: -1px
-
-    &::after
-      content: ''
-      position: absolute
-      bottom: 0
-      left: 50%
-      transform: translateX(-50%)
-      width: 56px
-      height: 3px
-      background: var(--primary)
-      border-radius: 2px
+    letter-spacing: -0.02em
 
     @include bp.down(sm)
-      font-size: 2rem
+      font-size: 1.6rem
 
 // Título de página (Servicios, Proyectos)
 .page-title
-  font-weight: 800
+  font-weight: 400
   line-height: 1.15
   margin: 0 0 1.5rem 0
 
@@ -206,13 +248,9 @@ main.main-outlet
 
   .title-main
     color: var(--text-color)
-    letter-spacing: -1px
 
   .title-highlight
-    background: linear-gradient(135deg, var(--primary), var(--purple-bright))
-    -webkit-background-clip: text
-    -webkit-text-fill-color: transparent
-    background-clip: text
+    color: var(--primary)
 
 .page-subtitle
   font-size: 1.15rem

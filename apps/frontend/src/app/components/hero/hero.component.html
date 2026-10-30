@@ -1,37 +1,56 @@
 <header id="inicio" class="hero" data-nav="theme-light">
-  <div class="color-orb-1"></div>
-  <div class="color-orb-2"></div>
-  <div class="color-orb-3"></div>
-  <div class="color-orb-4"></div>
-  <div class="color-orb-5"></div>
-  
-  <div class="hero-overlay"></div>
-  
+  <!-- Retoma el saludo de la intro como fondo tipográfico del hero -->
+  <p class="hero-word" aria-hidden="true">Hola Mundo</p>
+
   <div class="hero-content">
+    <figure class="hero-photo">
+      <img src="/img/johan.webp" width="1100" height="1100" alt="Johan Rodríguez" fetchpriority="high" />
+    </figure>
+
     <div class="hero-text">
-      <h1 class="reveal">
-        <span class="main-text">Johan Rodríguez</span>
-        <span class="highlight">Software Developer</span>
-      </h1>
-      <p class="reveal">
-        ¡Hola Mundo! Tengo experiencia en la creación de soluciones innovadoras y personalizadas.
-        Me apasiona convertir tus ideas en realidad a través de tecnología.
+      <h1>Johan Rodríguez</h1>
+      <p class="hero-role">Desarrollador de software</p>
+      <p class="hero-lead">
+        Construyo aplicaciones web de punta a punta: interfaces en Angular, APIs en Node y Express,
+        datos en PostgreSQL. Estudio en la Universidad Técnica de Ambato.
       </p>
-      <div class="reveal reveal-btn">
-        <app-button variant="primary" (click)="scrollToContact()">
-          Hablemos de tu proyecto
-        </app-button>
+      <div class="hero-actions">
+        <app-button variant="primary" (click)="scrollToContact()">Escríbeme</app-button>
+        <a routerLink="/proyectos" class="hero-link">Ver proyectos</a>
       </div>
     </div>
 
-    <div class="hero-visual">
-      <div class="visual-element"></div>
-      <div class="tech-icons-container">
-        <div class="tech-icon" *ngFor="let tech of technologies" [style.top.%]="tech.top" [style.left.%]="tech.left"
-          [style.animation-delay.s]="tech.delay" [title]="tech.name">
-          <i [class]="tech.icon"></i>
-        </div>
+    <aside class="hero-terminal glass" aria-label="Actividad reciente en GitHub">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+        <span class="terminal-title">~/{{ githubUser }}</span>
       </div>
-    </div>
+      <div class="terminal-body">
+        <p class="line"><span class="prompt">$</span> whoami</p>
+        <p class="line out">{{ githubUser }}</p>
+        <p class="line"><span class="prompt">$</span> cat ubicacion.txt</p>
+        <p class="line out">Quero, Tungurahua, Ecuador</p>
+
+        <p class="line"><span class="prompt">$</span> git log -1 --oneline</p>
+        @if (activity(); as data) {
+          @if (data.lastPush; as push) {
+            <p class="line out"><span class="sha">{{ push.sha }}</span> {{ push.message }}</p>
+            <p class="line out muted">{{ push.repo }}, {{ timeAgo(push.date) }}</p>
+          } @else {
+            <p class="line out muted">Sin pushes públicos recientes</p>
+          }
+          <p class="line"><span class="prompt">$</span> gh repo list --public | wc -l</p>
+          <p class="line out">{{ data.publicRepos }}</p>
+        } @else if (failed()) {
+          <p class="line out muted">No se pudo leer GitHub ahora mismo</p>
+        } @else {
+          <p class="line out muted">leyendo api.github.com<span class="cursor"></span></p>
+        }
+
+        <p class="line"><span class="prompt">$</span>
+          <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener noreferrer">open github.com/{{ githubUser }}</a><span class="cursor"></span>
+        </p>
+      </div>
+    </aside>
   </div>
 </header>

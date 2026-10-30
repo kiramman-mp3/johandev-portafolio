@@ -19,7 +19,10 @@ import { signal } from '@angular/core';
 export class HeaderComponent implements OnDestroy {
     @ViewChild('navbar', { static: false }) navbar!: ElementRef;
     isMenuOpen = signal(false);
+    // Ruta actual sin query ni fragmento, para marcar la sección activa en la píldora
+    currentPath = signal('/');
     private navEndSub?: Subscription;
+    private routeSub: Subscription;
 
     constructor(
         public navigationService: NavigationService,
@@ -27,10 +30,20 @@ export class HeaderComponent implements OnDestroy {
         private router: Router,
         private elementRef: ElementRef,
         public themeService: ThemeService
-    ) { }
+    ) {
+        this.routeSub = this.router.events
+            .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+            .subscribe(e => this.currentPath.set(e.urlAfterRedirects.split(/[?#]/)[0]));
+    }
 
     ngOnDestroy(): void {
         this.navEndSub?.unsubscribe();
+        this.routeSub.unsubscribe();
+    }
+
+    isActive(path: string): boolean {
+        const current = this.currentPath();
+        return path === '/' ? current === '/' : current.startsWith(path);
     }
 
     toggleMenu(): void {
